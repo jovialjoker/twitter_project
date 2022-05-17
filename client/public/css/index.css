@@ -108,3 +108,17 @@ body {
   font-weight: 500;
   color: rgb(35, 97, 135);
 }
+
+#submitBtn:disabled{
+  width: 200px;
+  color: white;
+  background-color: rgba(0,0,0,0.5);
+  font-size: 20px;
+}
+
+#submitBtn:disabled:hover{
+  box-shadow: none;
+  width: 300px;
+  border-top: 0px;
+  border-radius: 0%;
+}

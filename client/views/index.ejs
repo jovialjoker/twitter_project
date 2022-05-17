@@ -21,7 +21,7 @@
           loginBtn.style.display = "none";
           const destroy = document.getElementById("logout");
           destroy.style.display = "list-item";
-        } 
+        }
       });
 
       function submitHandler(e) {
@@ -33,13 +33,17 @@
           const user = localStorage.getItem("user");
           const today = new Date();
           const date =
-            today.getDate() + "/" +
+            today.getDate() +
+            "/" +
             (today.getMonth() + 1) +
             "/" +
-            today.getFullYear()
-            ;
+            today.getFullYear();
+          const btn = document.querySelector("button");
           const xhttp = new XMLHttpRequest();
-          console.log(message);
+          btn.disabled = true;
+          setTimeout(() => {
+            btn.disabled = false;
+          }, 10000);
           xhttp.open("POST", `/`, true);
           xhttp.setRequestHeader(
             "Content-type",
@@ -51,9 +55,9 @@
         document.getElementById("message").value = "";
       }
 
-      function destroySesion(){
-          localStorage.clear();
-          document.location.reload(true)
+      function destroySesion() {
+        localStorage.clear();
+        document.location.reload(true);
       }
     </script>
   </head>
@@ -62,6 +66,7 @@
       <div class="container">
         <div class="navbar">
           <ul id="nav-lists">
+            <li><img src="/images/twitter-svgrepo-com.svg" alt="logo" /></li>
             <li><a href="/">Home</a></li>
             <li id="register"><a href="/register">Register</a></li>
             <li id="login"><a href="/login">Login</a></li>
@@ -83,6 +88,7 @@
           id="message"
         ></textarea>
         <button
+          id="submitBtn"
           type="submit"
           class="submit formEntry"
           onclick="submitHandler()"
