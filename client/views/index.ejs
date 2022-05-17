@@ -51,6 +51,7 @@
           );
           xhttp.send(`message=${message}&postedAt=${date}&user=${user}`);
           window.alert("message posted succesfully");
+		  document.location.reload(true);
         }
         document.getElementById("message").value = "";
       }
@@ -78,7 +79,7 @@
       </div>
     </header>
     <main>
-      <form class="form">
+      <form class="form" action="/" method="POST">
         <div class="pageTitle title">What's on your mind today?</div>
         <div class="secondaryTitle title">Tell the world</div>
         <textarea

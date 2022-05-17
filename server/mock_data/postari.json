@@ -23,5 +23,6 @@
     "message": "Azi facem site la tehnici web!\n",
     "postedAt": "17/5/2022",
     "user": "George Florea"
-  }
+  },
+  { "message": "test", "postedAt": "17/5/2022", "user": "Sergiulinio" },
 ]

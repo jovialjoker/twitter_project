@@ -65,6 +65,10 @@ app.post('/register', (req, res) => {
     });
 })
 
+app.get('*', (req, res) =>{
+    return res.render('404page');
+})
+
 app.listen(PORT, () => {
     console.log("Server running");
 })
