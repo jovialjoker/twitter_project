@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="/css/navbar.css" />
+    <link rel="stylesheet" type="text/css" href="/css/login_register.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <title>Login</title>
+    <script type="text/javascript">
+      let users;
+      window.addEventListener('load', () => {
+        users = <%- JSON.stringify(users) %>
+      })
+      function submitHandler(e){
+              const newUser = document.getElementById('username').value;
+              const newPassword = document.getElementById('password').value;
+              const emptyInput = newUser.trim().length === 0  || newPassword.trim().length === 0
+              const shortPass = newPassword.trim().length < 6
+              if (emptyInput || shortPass){
+                  window.alert("Input invalid");
+              }
+              else{
+                    const verif = users.filter(({user, password}) => {
+                        return user == newUser && password == newPassword;
+                    });
+                    if(verif.length == 0){
+                        window.alert("Nu exista utilizatorul");
+                        window.location.replace("/register");
+                    }
+                    else{
+                        localStorage.setItem("isLogged", 1);
+                        localStorage.setItem("user", newUser);
+                        window.location.replace("/");
+                    }
+                }
+              document.getElementById('username').value = "";
+              document.getElementById('password').value = "";
+          }
+    </script>
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <div class="navbar">
+          <ul id="nav-lists">
+            <li><a href="/">Home</a></li>
+            <li><a href="/register">Register</a></li>
+          </ul>
+        </div>
+      </div>
+    </header>
+    <main>
+      <div class="wrapper">
+        <div class="face face-front">
+          <div class="content">
+            <h2>Sign in</h2>
+            <form onsubmit="event.preventDefault()">
+              <div class="field-wrapper">
+                <input
+                  type="text"
+                  name="username"
+                  id="username"
+                  placeholder="username"
+                />
+              </div>
+              <div class="field-wrapper">
+                <input
+                  type="password"
+                  name="password"
+                  id="password"
+                  placeholder="password"
+                />
+              </div>
+              <div class="field-wrapper">
+                <button type="submit" onclick="submitHandler()">Submit</button>
+              </div>
+              <span class="signup"
+                >Not an user? <a href="/register">Register</a>
+              </span>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

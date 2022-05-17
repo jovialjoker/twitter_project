@@ -1,0 +1,74 @@
+.wrapper {
+  width: 250px;
+  height: 350px;
+  margin: 60px auto;
+  perspective: 600px;
+  text-align: left;
+}
+.face {
+  position: absolute;
+  width: 250px;
+  height: 350px;
+  padding: 20px;
+  background: rgba(250, 250, 250, 0.96);
+  border: 3px solid lightskyblue;
+  border-radius: 3px;
+}
+.content {
+  color: #666;
+}
+h2 {
+  font-size: 1.7em;
+  color: blue;
+}
+.field-wrapper {
+  margin-top: 20px * 1.5;
+  position: relative;
+}
+label {
+  position: absolute;
+  pointer-events: none;
+  font-size: 0.85em;
+  top: 40%;
+  left: 0;
+  color: lighten(#666, 20%);
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"]{
+  width: 100%;
+  border: none;
+  background: transparent;
+  line-height: 2em;
+  border-bottom: 1px solid lightskyblue;
+  color: #666;
+}
+button {
+  margin-top:1.5rem;
+  appearance: none;
+  cursor: pointer;
+  width: 100%;
+  background: lightskyblue;
+  line-height: 2em;
+  color: #fff;
+  border: 1px solid #07ad90;
+  border-radius: 3px;
+  padding: 20px/4;
+}
+button:hover {
+  opacity: 0.9;
+}
+button:active {
+  transform: scale(0.96);
+}
+
+.signup,
+.singin {
+  display: block;
+  margin: 20px 0;
+  font-size: 0.75em;
+  text-align: center;
+  color: #42509e;
+  cursor: pointer;
+}

@@ -1,51 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home Page</title>
     <link rel="stylesheet" type="text/css" href="/css/index.css" />
-</head>
-<body>
+    <link rel="stylesheet" type="text/css" href="/css/navbar.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    />
+    <script type="text/javascript">
+      window.addEventListener("load", () => {
+        const isLogged = localStorage.getItem("isLogged");
+        if (isLogged) {
+          const registerBtn = document.getElementById("register");
+          const loginBtn = document.getElementById("login");
+          registerBtn.style.display = "none";
+          loginBtn.style.display = "none";
+          const destroy = document.getElementById("logout");
+          destroy.style.display = "list-item";
+        } 
+      });
+
+      function submitHandler(e) {
+        const message = document.getElementById("message").value;
+        const emptyInput = message.trim().length === 0;
+        if (emptyInput) {
+          window.alert("Input invalid");
+        } else {
+          const user = localStorage.getItem("user");
+          const today = new Date();
+          const date =
+            today.getDate() + "/" +
+            (today.getMonth() + 1) +
+            "/" +
+            today.getFullYear()
+            ;
+          const xhttp = new XMLHttpRequest();
+          console.log(message);
+          xhttp.open("POST", `/`, true);
+          xhttp.setRequestHeader(
+            "Content-type",
+            "application/x-www-form-urlencoded"
+          );
+          xhttp.send(`message=${message}&postedAt=${date}&user=${user}`);
+          window.alert("message posted succesfully");
+        }
+        document.getElementById("message").value = "";
+      }
+
+      function destroySesion(){
+          localStorage.clear();
+          document.location.reload(true)
+      }
+    </script>
+  </head>
+  <body>
     <header>
-        <div class="nav">
-            <div class="nav__left">
-                <img src="/images/twitter-svgrepo-com.svg">
-            </div>
-            <div class="nav__right">
-                <a href="/">My Profile</a>
-                <a href="/">Login</a>
-                <a href="/">Register</a>
-            </div> 
+      <div class="container">
+        <div class="navbar">
+          <ul id="nav-lists">
+            <li><a href="/">Home</a></li>
+            <li id="register"><a href="/register">Register</a></li>
+            <li id="login"><a href="/login">Login</a></li>
+            <li id="logout" style="display: none">
+              <a href="#" onclick="destroySesion()">Logout</a>
+            </li>
+          </ul>
         </div>
+      </div>
     </header>
-    <main class="main">
-        <form>
-            <h3>Whats on your mind:</h3>
-            <input type="text" maxlength="90" placeholder="Tell the world...">
-            <button type="submit">Post</button>
-        </form>
-        <section class="postari">
-            <% const postari = [
-            {
-                "message": "foarte frumos la mare",
-                "user": "JovialJoker",
-                "postedAt": "16/07/2022"
-            },
-            {
-                "message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec diam purus, dictum id tortor vitae, varius tempor felis. Donec sagittis, ex ac viverra aliquet, mi diam molestie nulla, sed bibendum turpis ante vel urna. Proin ut viverra urna. Pellentesque eleifend, elit id dignissim lobortis, metus ipsum aliquet purus, ac rutrum lectus nibh id turpis. Quisque metus lorem, dapibus ac velit nec, tincidunt faucibus lectus.",
-                "user": "HAIDUC",
-                "postedAt": "19/67/2021"
-            },
-            {
-                "message": "Morbi vehicula vestibulum cursus. Curabitur eget suscipit libero. Fusce enim magna, ullamcorper quis orci a, maximus bibendum ante. In vehicula elit orci, vel consequat tortor scelerisque at. Donec ultrices non orci nec venenatis. Proin tempus ante non ornare blandit.",
-                "user": "FS",
-                "postedAt": "08/04/2002"
-            }
-        ]%>
-        
-        </section>
+    <main>
+      <form class="form">
+        <div class="pageTitle title">What's on your mind today?</div>
+        <div class="secondaryTitle title">Tell the world</div>
+        <textarea
+          class="message formEntry"
+          placeholder="Message"
+          maxlength="100"
+          id="message"
+        ></textarea>
+        <button
+          type="submit"
+          class="submit formEntry"
+          onclick="submitHandler()"
+        >
+          Post
+        </button>
+      </form>
+      <section class="postari">
+        <% postari.forEach(function(post){ %> <%- include('./partials/post',
+        {post: post}); %> <% }); %>
+      </section>
     </main>
-</body>
+  </body>
 </html>
